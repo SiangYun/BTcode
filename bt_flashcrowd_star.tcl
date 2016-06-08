@@ -66,7 +66,7 @@ $ns rtproto Manual
 	set DelayMax 50
 	
 	# file size : 960MB              100 -> 960
-	set S_F_MB 1000
+	set S_F_MB 36
 	
 	set S_F [expr $S_F_MB * 1024.0 *1024]   # bits
 	set S_C [expr 256.0 *1024]              # bits
