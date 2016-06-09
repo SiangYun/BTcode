@@ -18,7 +18,8 @@ if { $argc > 0 } {
 			set s $arg
 		}
 		if {$i==3} {
-			set C_up [expr $arg * 1000]
+    # kbits * 1024 = bits   old value is 1000
+			set C_up [expr $arg * 1024]
 		}			
                 incr i
         }
@@ -52,7 +53,7 @@ $ns rtproto Manual
 	# number of seeds :1
 	set N_S 1
 	
-	# upload capacity in bytes 
+	# upload capacity in bytes : input C_up in bits 
 	set C_up_bytes [expr $C_up / 8.0 ]
 	
 	# factor that download capacity is higher than upload capacity
@@ -68,9 +69,12 @@ $ns rtproto Manual
 	# file size : 960MB              100 -> 960
 	set S_F_MB 36
 	
-	set S_F [expr $S_F_MB * 1024.0 *1024]   # bits
-	set S_C [expr 256.0 *1024]              # bits
-	set N_C [format %.0f [expr ceil($S_F / $S_C)]] # 3840
+  # MB * 1024 = KB, KB * 1024 = Bytes
+	set S_F [expr $S_F_MB * 1024.0 *1024]   
+  # KB * 1024 = Bytes
+	set S_C [expr 256.0 *1024]              
+	# Bytes / Bytes
+  set N_C [format %.0f [expr ceil($S_F / $S_C)]] 
 
 	# set the seed for the RNG (0: non-deterministic, 1 - MAXINT (2147483647))
 	set rng_seed $s
