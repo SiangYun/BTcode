@@ -78,11 +78,12 @@ $ns rtproto Manual
 	set S_C [expr 256.0 *1024]              
 	# Bytes / Bytes
   set N_C [format %.0f [expr ceil($S_F / $S_C)]]
-  set L_F [expr $S_F / ($B_R*8)] 
+  set L_F [expr $S_F / ($B_R/8)] 
   
   # Highlight's info
-  set S_H [expr $S_F_MB / 9 * 1024.0 *1024]
+  set S_H [expr ($S_F_MB/9) * 1024.0 *1024]
   set L_H [expr $S_H / ($B_R/8)]
+  set N_H 1
   
 	# set the seed for the RNG (0: non-deterministic, 1 - MAXINT (2147483647))
 	set rng_seed $s
@@ -107,6 +108,8 @@ append p2ptrace _
 append p2ptrace $L_F
 append p2ptrace _&_
 append p2ptrace $S_H
+append p2ptrace _
+append p2ptrace $L_H
 append p2ptrace ___
 append p2ptrace [clock seconds]
 
@@ -176,7 +179,7 @@ proc done {} {
 }
 
 # create tracker
-# Parameters: File Size [B], Chunk Size [B]
+# Parameters: File Size [B], Chunk Size [B]  , Highlight Size[B]
 set go [new BitTorrentTracker $S_F $S_C]
 $go tracefile $p2ptrace	
 	
