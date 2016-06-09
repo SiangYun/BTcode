@@ -55,7 +55,10 @@ $ns rtproto Manual
 	
 	# upload capacity in bytes : input C_up in bits 
 	set C_up_bytes [expr $C_up / 8.0 ]
-	
+  
+  # bit rate in bits
+	set B_R [expr 1.2 * 1024.0 * 1024]
+  
 	# factor that download capacity is higher than upload capacity
 	set C_down_fac 8
 	
@@ -74,8 +77,13 @@ $ns rtproto Manual
   # KB * 1024 = Bytes
 	set S_C [expr 256.0 *1024]              
 	# Bytes / Bytes
-  set N_C [format %.0f [expr ceil($S_F / $S_C)]] 
-
+  set N_C [format %.0f [expr ceil($S_F / $S_C)]]
+  set L_F [expr $S_F / ($B_R*8)] 
+  
+  # Highlight's info
+  set S_H [expr $S_F_MB / 9 * 1024.0 *1024]
+  set L_H [expr $S_H / ($B_R/8)]
+  
 	# set the seed for the RNG (0: non-deterministic, 1 - MAXINT (2147483647))
 	set rng_seed $s
 
@@ -85,7 +93,7 @@ set peerCount 0
 set FinishedPeers 0
 
 
-# NAME OF TRACE FILE
+# NAME OF TRACE FILE : add 107~110         
 set p2ptrace	bittorrent/results_flash_packet_star_
 append p2ptrace $S_F_MB
 append p2ptrace MB_N_P_
@@ -96,6 +104,10 @@ append p2ptrace Bps
 append p2ptrace _seed_
 append p2ptrace $s
 append p2ptrace _
+append p2ptrace $L_F
+append p2ptrace _&_
+append p2ptrace $S_H
+append p2ptrace ___
 append p2ptrace [clock seconds]
 
 exec mkdir $p2ptrace
