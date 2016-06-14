@@ -331,7 +331,8 @@ void BitTorrentApp::log_statistics()
 		first_chunk_time << " " << 
 		download_finished << " " << 
 		stop_time << " " << 
-		download_finished - start_time << " " << 
+		download_finished - start_time << " " <<
+		highlight_size << " " <<
 		endl;
 		
 	file_op.close();

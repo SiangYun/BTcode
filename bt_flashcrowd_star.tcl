@@ -180,7 +180,7 @@ proc done {} {
 
 # create tracker
 # Parameters: File Size [B], Chunk Size [B]  , Highlight Size[B]
-set go [new BitTorrentTracker $S_F $S_C]
+set go [new BitTorrentTracker $S_F $S_C $S_H]
 $go tracefile $p2ptrace	
 	
 

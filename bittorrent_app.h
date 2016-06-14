@@ -413,6 +413,8 @@ protected:
 	char p2ptrace_file[256];
 	
 	bool reported_max_time;
+
+	long highlight_size; // 
 };
 
 
